@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+	<form class="text-center border border-light p-5" action="{% url 'upload_docs_url' client.id %}" method="post" enctype="multipart/form-data">>
+		<p class="h4 mb-4">Загрузить документ</p>
+		{% csrf_token %}
+		 	<div class="form-group">
+				{{ form.claimant }}
+			</div>
+			<div class="custom-file">
+			  {{ form.document }}
+			  <label class="custom-file-label" for="customFileLang">Выберите файл</label>
+			</div>
+		<button class="btn btn-primary my-4 btn-block" type="submit">Загрузить</button>
+	</form>
+{% endblock %}
+

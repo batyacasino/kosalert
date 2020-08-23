@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  {% if allerts %}
+    <div class="mt-4 jumbotron hoverable text-center view">
+      <p class="mb-4 h3">Мосгорсуд: {{ len_allert }}</p>
+      <div class="owl-carousel">
+        {% for allert in allerts %}       
+          <div class="card-group text-dark border">
+            <div class="card" id="gocard"><!-- Card content -->
+              <div class="card-body view">
+                <li class="list-group-item">
+                  <p class="h5 text-center">
+                    {{ allert.client }}
+                  </p>
+                </li>
+                  <p class="h6 text-center mt-2">
+                    {{ allert.date }}
+                  </p>
+                  <p class="h6 text-center mt-2">
+                  {{ allert.description }}
+                  </p>
+                  <div class="mask flex-center">
+                    <a id="gocard_mask" class="bg-dark" href="{% url 'delete_alert_url' allert.id %}">
+                      <p class="h6 white-text ">Подробное описание</p>
+                    </a>  
+                  </div>
+              </div>
+            </div>
+          </div>        
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+  {% if reminders %}
+    <div class="mt-4 jumbotron hoverable text-center view">
+      <p class="mb-4 h3">Напоминания: {{ len_reminders }}</p>
+      <div class="owl-carousel">
+        {% for reminder in reminders %}
+            <div class="card-group text-dark border">
+              <div class="card" id="gocard"><!-- Card content -->
+                <div class="card-body">
+                  <li class="list-group-item">
+                    <p class="h5 text-center">
+                      {{ reminder.client }}
+                    </p>
+                  </li>
+                    <p class="h6 text-center mt-2">
+                      {{ reminder.description }}
+                    </p>
+                    <div class="mask flex-center">
+                      <a id="gocard_mask" class="bg-dark" href="{% url 'detail_client_url' reminder.client_id  %}">
+                        <p class="h6 white-text ">Подробное описание</p>
+                      </a>  
+                    </div>                                        
+                </div>
+              </div>
+            </div>       
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+  {% if emails %}
+    <div class="mt-4 jumbotron hoverable text-center view">
+      <p class="mb-4 h3">Почта: {{ len_emails }}</p>
+      <div class="owl-carousel">
+        {% for email in emails %}
+          <div class="card-group text-dark border">
+            <div class="card" id="gocard"><!-- Card content -->
+              <div class="card-body">
+                <li class="list-group-item">
+                  <p class="h5 text-center">
+                    {{ email.claimant }}
+                  </p>
+                </li>
+                  <p class="h6 text-center mt-2">
+                    {{ email.email_count }}<i class="fas fa-envelope ml-2"></i>
+                  </p>
+                  <div class="mask flex-center">
+                    <a id="gocard_mask" class="bg-dark" href="{% url 'detail_client_url' email.id  %}">
+                      <p class="h6 white-text ">Подробное описание</p>
+                    </a>  
+                  </div>                                        
+              </div>
+            </div>
+          </div> 
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+  {% if not reminders and not emails and not allerts %}
+    <div class="mt-4 jumbotron hoverable text-center">
+      <p class="mb-4 h3">Новых оповещений нет</p>
+    </div> 
+  {% endif %}     
+</div>   
+{% endblock %}
+

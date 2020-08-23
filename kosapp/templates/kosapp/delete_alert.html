@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+	<ul class="list-group">
+	{% for client_id in  client %}	
+		<li class="list-group-item text-center"><p class="h6">ID клиента:</p>{{ client_id.id }}</li>
+		<li class="list-group-item text-center"><p class="h6">Клиент:</p>{{ client_id.claimant }}</li>	
+	{% endfor %}
+	<li class="list-group-item text-center"><p class="h6">дата:</p>{{ alert.date }}</li>
+	<li class="list-group-item text-center"><p class="h6">Событие:</p>{{ alert.description }}</li>
+
+	</ul>
+</div>
+	<form class="text-center p-5" action="{% url 'delete_alert_url' alert.id %}" method="post">
+	{% csrf_token %}
+	<h3>Подтвердите что ознакомились с оповещением с сайта "Мосгорсуд"</h3>
+	<a href="{% url 'index' %}">Отменьть</a>
+	<button class="btn btn-danger my-4" type="submit">Подтверждаю</button>
+	{% for url in url_msg %} 
+	 <a href="{{ url.url_mosgorsud }}" class="btn btn-dark mt-2" target="_blank">url_mosgorsud</a>
+	{% endfor %}
+	</form>
+{% endblock %}

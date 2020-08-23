@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block email %}
+	<div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+		<ul class="navbar-nav ml-auto nav-flex-icons">
+		    <form class="form-inline"  action="{% url 'client_list_url' %}">
+		      <div class="md-form my-0">
+		        <input class="form-control mr-sm-2" type="text" placeholder="Поиск по номеру дела" aria-label="Search" name="search_case">
+		      </div>
+		    </form>
+		</ul>
+		<ul class="navbar-nav ml-auto nav-flex-icons">
+		    <form class="form-inline"  action="{% url 'client_list_url' %}">
+		      <div class="md-form my-0">
+		        <input class="form-control mr-sm-2" type="text" placeholder="Поиск по id клиента" aria-label="Search" name="search_id">
+		      </div>
+		    </form>
+		</ul>
+		<ul class="navbar-nav ml-auto nav-flex-icons">
+		    <form class="form-inline"  action="{% url 'client_list_url' %}">
+		      <div class="md-form my-0">
+		        <input class="form-control mr-sm-2" type="text" placeholder="Поиск по Ф.И.О клиента" aria-label="Search" name="search_fio">
+		      </div>
+		    </form>
+		</ul>		
+	</div>
+{% endblock %}
+{% block content %}
+<div class="container">
+<ul class="list-group">
+	{% csrf_token %}
+	{% for client in clients %}
+		<a href="{% url 'detail_client_url' client.id %}" class="m-1">
+			<li class="list-group-item text-center btn btn-dark">
+			{{ client.claimant }}
+			</li>
+		</a>
+	{% endfor %}
+</ul>
+</div>
+{% endblock %}

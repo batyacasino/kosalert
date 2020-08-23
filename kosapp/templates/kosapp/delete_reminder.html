@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+	<form class="text-center p-5" action="{% url 'delete_reminder_url' id %}" method="post">
+	{% csrf_token %}
+	<h3>Вы уверены что хотите удалить напоминание?</h3>
+	<a href="{% url 'index' %}">Отменьть</a>
+	<button class="btn btn-danger my-4" type="submit">Удалить</button>
+	</form>
+{% endblock %}
