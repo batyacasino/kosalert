@@ -3,7 +3,7 @@ from django.shortcuts import reverse
 
 class Client(models.Model):
 	date_creat = models.DateField(auto_now_add=True)
-	case_number = models.CharField(max_length=50)
+	case_number = models.CharField(max_length=50, blank=True, null=True)
 	claimant = models.CharField(max_length=200)
 	date_of_birth = models.DateField()
 	defendant = models.CharField(max_length=200)	
