@@ -1,122 +1,74 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container-fluid">
-	<p class="text-center">
-	  <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-	    История состояний
-	  </button>
-	</p>
-	<div class="collapse" id="collapseExample">
-		<div class="row">
-			<div class="col-md-4">
-				<ul class="list-group">
-					<li class="list-group-item text-center h5">Дата</li>	
-					{% for statemovement in statemovements %}
-						<li class="list-group-item  text-center">{{ statemovement.date }}</li>	
-					{% endfor %}
-				</ul>
-			</div>
-			  <div class="col-md-4">	  
-				<ul class="list-group">
-					<li class="list-group-item text-center h5">Состояние</li>	
-					{% for statemovement in statemovements %}
-						<li class="list-group-item  text-center">{{ statemovement.condition }}</li>	
-					{% endfor %}
-				</ul>
-			</div>	
-			  <div class="col-md-4">	  
-				<ul class="list-group">
-					<li class="list-group-item text-center h5">Документ-основание</li>	
-					{% for statemovement in statemovements %}
-						<li class="list-group-item  text-center">{{ statemovement.document_base }}</li>			
-					{% endfor %}
-				</ul>
-			</div>		
-		</div>
-	</div>
+	<h1 class="text-center">
+	   История состояний
+	</h1>
+	<table class="table">
+	  <thead class="bg-dark white-text">
+	    <tr>
+	      <th scope="col">Дата</th>
+	      <th scope="col">Состояние</th>
+	      <th scope="col">Документ-основание</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for statemovement in statemovements %}
+		    <tr>		    
+		      <th scope="row">{{ statemovement.date }}</th>
+		      <td>{{ statemovement.condition }}</td>
+		      <td>{{ statemovement.document_base }}</td>		      
+		    </tr>
+		{% endfor %} 
+	  </tbody>
+	</table>
 
-	<p class=" text-center">
-	  <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
-	    Судебные заседания
-	  </button>
-	</p>
-	<div class="collapse" id="collapseExample1">
-		<div class="row">
-			<div class="col-md-3">	  
-				<ul class="list-group">
-					<li class="list-group-item text-center h5">Дата</li>	
-					{% for courtsession in courtsessions %}
-						<li class="list-group-item  text-center">{{ courtsession.date }}</li>	
-					{% endfor %}
-				</ul>
-			</div>	
-			<div class="col-md-1">	  
-				<ul class="list-group">
-					<li class="list-group-item text-center h5">Зал</li>	
-					{% for courtsession in courtsessions %}
-						<li class="list-group-item  text-center">{{ courtsession.hall }}</li>	
-					{% endfor %}
-				</ul>
-			</div>	
-			<div class="col-md-4">	  
-				<ul class="list-group">
-					<li class="list-group-item text-center h5">Стадия</li>	
-					{% for courtsession in courtsessions %}
-						<li class="list-group-item  text-center">{{ courtsession.stage }}</li>	
-					{% endfor %}
-				</ul>
-			</div>
-			<div class="col-md-4">	  
-				<ul class="list-group">
-					<li class="list-group-item text-center h5">Результат</li>	
-					{% for courtsession in courtsessions %}
-						<li class="list-group-item  text-center">{{ courtsession.result }}</li>	
-					{% endfor %}
-				</ul>
-			</div>
-		</div>
-	</div>
+	<h1 class="text-center">
+	   Судебные заседания
+	</h1>
+	<table class="table">
+	  <thead class="bg-dark white-text">
+	    <tr>
+	      <th scope="col">Дата</th>
+	      <th scope="col">Зал</th>
+	      <th scope="col">Стадия</th>
+	      <th scope="col">Результат</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for courtsession in courtsessions %}
+		    <tr>		    
+		      <th scope="row">{{ courtsession.date }}</th>
+		      <td>{{ courtsession.hall }}</td>
+		      <td>{{ courtsession.stage }}</td>
+		      <td>{{ courtsession.result }}</td>     
+		    </tr>
+		{% endfor %} 
+	  </tbody>
+	</table>
 
-	<p class="text-center">
-	  <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
-	    Судебные акты
-	  </button>
-	</p>
-	<div class="collapse" id="collapseExample2">
-		<div class="row">
-			<div class="col-md-3">
-				<ul class="list-group">
-					<li class="list-group-item text-center h5">Дата документа</li>	
-					{% for judicialact in judicialacts %}
-						<li class="list-group-item  text-center">{{ judicialact.date }}</li>
-					{% endfor %}
-				</ul>
-			</div>
-			<div class="col-md-7">
-				<ul class="list-group">
-					<li class="list-group-item text-center h5">Вид документа</li>	
-					{% for judicialact in judicialacts %}
-						<li class="list-group-item  text-center">{{ judicialact.type_of_document }}</li>
-					{% endfor %}
-				</ul>
-			</div>
-			<div class="col-md-2">
-				<ul class="list-group">
-					<li class="list-group-item text-center h5">Текст документа</li>	
-					{% for judicialact in judicialacts %}
-						<li class="list-group-item  text-center">
-						{% if judicialact.document_text %}
-							<a href="{{ judicialact.document_text }}">скачать документ</a>
-						{% endif %}						
-						</li>
-					{% endfor %}
-				</ul>
-			</div>
-		</div>
-	</div>
+	<h1 class="text-center">
+	   Судебные акты
+	</h1>
+	<table class="table">
+	  <thead class="bg-dark white-text">
+	    <tr>
+	      <th scope="col">Дата документа</th>
+	      <th scope="col">Вид документа</th>
+	      <th scope="col">Текст документа</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for judicialact in judicialacts %}
+		    <tr>		    
+		      <th scope="row">{{ judicialact.date }}</th>
+		      <td>{{ judicialact.type_of_document }}</td>
+		      {% if judicialact.document_text %}
+		      	<td><a href="{{ judicialact.document_text }}">Скачать документ</a></td>
+		      {% endif %}
+		    </tr>
+		{% endfor %} 
+	  </tbody>
+	</table>
 </div>
-
-
-
 {% endblock %}
-
