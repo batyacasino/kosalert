@@ -24,7 +24,6 @@ def html_to_list(content):
 				items.append(cel.text.strip())
 		data.append(items)
 	return data[1:]
-#lesbocoder@gmail.com otfpyypbN123
 
 def get_data(client, casenumber, last_name, tabs):
 	s = requests.Session()
