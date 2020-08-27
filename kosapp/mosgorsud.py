@@ -4,8 +4,6 @@ from re import findall
 
 from .models import *
 
-
-
 def test():
 	print(get_data('10-135650/2020', 'Абдурахманов', '2'))
 
@@ -26,9 +24,9 @@ def html_to_list(content):
 				items.append(cel.text.strip())
 		data.append(items)
 	return data[1:]
+#lesbocoder@gmail.com otfpyypbN123
 
-
-def get_data(casenumber, last_name, tabs):
+def get_data(client, casenumber, last_name, tabs):
 	s = requests.Session()
 	header = {'user-agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36'}
 	main_domain = 'https://www.mos-gorsud.ru'
@@ -38,13 +36,13 @@ def get_data(casenumber, last_name, tabs):
 	soup = BeautifulSoup(r.text, 'lxml')
 	tbody = soup.find('a', {'class':"detailsLink"})['href']
 	url2 = f'{main_domain}{tbody}'
-
+	
 	url_msg = UrlMosgorsud.objects.filter(client_id=client.id)
 	if not url_msg:
 		UrlMosgorsud.objects.create(
 						client_id=client,
 						url_mosgorsud = url2,
-						)	
+						)
 
 	r2 = requests.get(url2, headers=header)
 	soup2 = BeautifulSoup(r2.text, 'lxml')
@@ -60,6 +58,7 @@ def get_data(casenumber, last_name, tabs):
 	else:
 		my_data1 = html_to_list(str(tables))
 		data.append(my_data1)
+	
 	return data
 
 
@@ -74,7 +73,7 @@ def get_mosgordata(client):
 	find_name = findall(r'[\w]+', client.claimant)
 	for i in range(1, 4):
 		try:
-			mosgordata = get_data(client.case_number, find_name[0], i)
+			mosgordata = get_data(client, client.case_number, find_name[0], i)
 			for mosgor in mosgordata[0]:
 				
 				if i == 1:
